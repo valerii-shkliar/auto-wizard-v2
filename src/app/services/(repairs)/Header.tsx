@@ -1,7 +1,9 @@
 'use client';
 
+import { getList } from '@/api/ServicesApi';
+import { REPAIR_CATEGORIES_PATH } from '@/constants/url';
 import { getFilter, resetFilter, setFilter } from '@/store/slices/repairsSlice';
-import { ChangeEventHandler } from 'react';
+import { ChangeEventHandler, useEffect } from 'react';
 import { IoSearch } from 'react-icons/io5';
 import { TiDelete } from 'react-icons/ti';
 import { useDispatch, useSelector } from 'react-redux';

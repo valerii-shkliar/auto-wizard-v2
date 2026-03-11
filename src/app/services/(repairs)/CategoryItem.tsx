@@ -33,7 +33,7 @@ function CategoryItem({ title, id }: TCategory) {
       <Link
         href={{
           pathname: '/services',
-          query: { category: categoryQuery },
+          query: { name: categoryQuery },
         }}
         className={clsx(
           'p-2.5 flex items-center rounded-xl transition-colors duration-400 hover:bg-box-background-hover',
