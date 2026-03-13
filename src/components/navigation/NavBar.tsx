@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
+import Theme from './Theme';
 
 export default function NavBar() {
   const linkItemClass =
@@ -45,7 +46,7 @@ export default function NavBar() {
         </li>
       </ul>
       <div className="flex gap-2.5">
-        <div>Theme</div>
+        <Theme />
         <div>Auth</div>
       </div>
     </nav>
