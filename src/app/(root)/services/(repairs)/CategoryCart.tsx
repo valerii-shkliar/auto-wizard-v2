@@ -24,19 +24,23 @@ function CategoryCart() {
     <li>
       <a
         className={clsx(
-          'p-2.5 flex items-center rounded-xl transition-colors duration-400 rounded-2.5 hover:bg-box-background-hover',
-          isActiveCart && 'bg-box-background-hover',
+          'group p-2.5 flex items-center rounded-xl transition-colors duration-400 rounded-2.5 hover:bg-light-700',
+          isActiveCart && 'bg-light-700 text-dark-primary200',
         )}
         onClick={handleCategoryCartClick}
       >
         <FaCartArrowDown
           className={clsx(
-            'w-6 h-6 text-primary-color',
-            overallAmountOptedRepairs > 0 && 'text-secondary-color',
+            'w-6 h-6 text-primary-200',
+            overallAmountOptedRepairs > 0 && 'text-primary-200',
           )}
         />
-        <p className="ml-3 text-primary-color">Chosen Services</p>
-        <span className="ml-auto text-primary-color">{overallAmountOptedRepairs}</span>
+        <p className="ml-3 text-primary200_light100 group-hover:text-dark-primary200">
+          Chosen Services
+        </p>
+        <span className="ml-auto text-primary200_light100 group-hover:text-dark-primary200">
+          {overallAmountOptedRepairs}
+        </span>
       </a>
     </li>
   );

@@ -23,7 +23,7 @@ function Header() {
   }
 
   return (
-    <div className="p-5 flex justify-between items-center border-b border-border-color">
+    <div className="p-5 flex justify-between items-center border-b border-light-800">
       <h3 className="text-xl font-semibold">Categories services</h3>
       <div className="min-w-2/3 flex relative">
         <IoSearch className="icon absolute left-2.5 top-1/2 -translate-y-1/2" />

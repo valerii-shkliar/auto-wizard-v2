@@ -21,7 +21,7 @@ function CategoriesClient({ categories, services }: IProps) {
   }, [categories, services, dispatch]);
 
   return (
-    <div className="min-w-1/3 border border-solid border-border-color">
+    <div className="min-w-1/3 border border-solid border-light-800">
       <ul className="p-2.5">
         <CartOfRepairs />
         {categories.map(({ id, title }) => {

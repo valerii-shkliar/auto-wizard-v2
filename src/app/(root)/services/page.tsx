@@ -4,7 +4,7 @@ import ServicesList from './(repairs)/ServicesList';
 
 function Page() {
   return (
-    <div className="w-3/4 bg-box-background rounded-lg shadow-for-box">
+    <div className="w-3/4 background-light900_dark100 text-light900_dark100 rounded-lg shadow-gray-300 shadow-lg">
       <Header />
       <div className="flex">
         <Categories />

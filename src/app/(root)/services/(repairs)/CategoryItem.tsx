@@ -36,14 +36,18 @@ function CategoryItem({ title, id }: TCategory) {
           query: { name: categoryQuery },
         }}
         className={clsx(
-          'p-2.5 flex items-center rounded-xl transition-colors duration-400 hover:bg-box-background-hover',
-          isActiveCategory && 'bg-box-background-hover',
+          'group p-2.5 flex items-center rounded-xl transition-colors duration-400 hover:bg-light-700',
+          isActiveCategory && 'bg-light-700 text-dark-primary200',
         )}
         onClick={handleCategoryClick}
       >
         <Image width={24} height={24} src={src} alt={title} />
-        <p className="ml-3 text-primary-color">{title}</p>
-        <span className="ml-auto text-primary-color">{amountOptedServices}</span>
+        <p className="ml-3 text-primary200_dark:light100 group-hover:text-dark-primary200">
+          {title}
+        </p>
+        <span className="ml-auto text-primary200_dark:light100 group-hover:text-dark-primary200">
+          {amountOptedServices}
+        </span>
       </Link>
     </li>
   );

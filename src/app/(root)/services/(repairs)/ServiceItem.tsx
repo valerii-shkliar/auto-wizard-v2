@@ -36,7 +36,7 @@ function ServiceItem({ service }: { service: TService }) {
       if (regExp.test(text)) {
         regExp.lastIndex = 0;
         res.push(
-          <span key={i} className="font-medium underline text-warning-color">
+          <span key={i} className="font-medium underline text-warning">
             {text}
           </span>,
         );
@@ -50,25 +50,30 @@ function ServiceItem({ service }: { service: TService }) {
   return (
     <li>
       <a
-        className="group flex items-center p-2.5 rounded-xl hover:bg-box-background-hover"
+        className="group flex items-center p-2.5 rounded-xl hover:bg-light-700"
         onClick={handleInputChange}
       >
         <input
           checked={isChecked}
           onChange={handleInputChange}
           readOnly
-          className="appearance-none w-6 h-6 rounded-md border border-solid border-secondary-color-darken relative bg-pattern bg-none bg-size-[80%] transition-all duration-400 hover:cursor-pointer select-none checked:bg-secondary-color-darken checked:bg-[url('/icons/systems/tick.svg')]"
+          className="appearance-none w-6 h-6 rounded-md border border-solid border-primary-300 relative bg-pattern 
+          bg-none bg-size-[80%] transition-all duration-400 hover:cursor-pointer select-none 
+          checked:bg-[url('/icons/systems/tick.svg')] checked:bg-primary-300"
           name="service-select"
           type="checkbox"
         />
 
-        <p className="text-primary-color ml-2.5 text-sm">
+        <p className="text-dark-primary200_dark:light100 ml-2.5 text-sm group-hover:text-dark-primary200">
           {filter ? pointFilteredText(name, filter) : name}
         </p>
-        <span className="text-primary-color text-sm ml-4.5 opacity-0 transition-opacity duration-800 group-hover:opacity-100">
+        <span
+          className="text-dark-primary200_dark:light100 text-sm ml-4.5 opacity-0 transition-opacity duration-800 
+        group-hover:opacity-100 group-hover:text-dark-primary200"
+        >
           {!isNaN(leadTime) && `approx.: ${convertLeadTime(leadTime)}`}
         </span>
-        <span className="text-primary-color text-sm font-medium ml-auto">{`from ${price}$`}</span>
+        <span className="text-dark-primary200_dark:light100 text-sm font-medium ml-auto group-hover:text-dark-primary200">{`from ${price}$`}</span>
       </a>
     </li>
   );

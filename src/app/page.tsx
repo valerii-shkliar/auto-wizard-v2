@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 
-const Page = () => {
-  return <div>Page</div>;
+const Page = ({ children }: { children: ReactNode }) => {
+  return <div>{children}</div>;
 };
 
 export default Page;
