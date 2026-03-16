@@ -31,14 +31,24 @@ function CategoryCart() {
       >
         <FaCartArrowDown
           className={clsx(
-            'w-6 h-6 text-primary-200',
-            overallAmountOptedRepairs > 0 && 'text-primary-200',
+            'w-6 h-6 text-primary200_light900 group-hover:dark:text-primary-200',
+            isActiveCart && 'dark:text-primary-200',
           )}
         />
-        <p className="ml-3 text-primary200_light100 group-hover:text-dark-primary200">
+        <p
+          className={clsx(
+            'ml-3 text-primary200_light900 group-hover:text-dark-primary200 group-hover:dark:text-primary-200',
+            isActiveCart && 'dark:text-primary-200',
+          )}
+        >
           Chosen Services
         </p>
-        <span className="ml-auto text-primary200_light100 group-hover:text-dark-primary200">
+        <span
+          className={clsx(
+            'ml-auto text-primary200_light900 group-hover:text-dark-primary200 group-hover:dark:text-primary-200',
+            isActiveCart && 'dark:text-primary-200',
+          )}
+        >
           {overallAmountOptedRepairs}
         </span>
       </a>

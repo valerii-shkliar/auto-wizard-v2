@@ -9,7 +9,6 @@ import {
 } from '@/store/slices/repairsSlice';
 import { TCategory } from '@/types';
 import clsx from 'clsx';
-import Image from 'next/image';
 import Link from 'next/link';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -17,7 +16,7 @@ function CategoryItem({ title, id }: TCategory) {
   const dispatch = useDispatch();
   const activeCategoryId = useSelector(getActiveCategoryId);
   const amountOptedServices = useSelector(getAmountOptedServices(id));
-  const src = CATEGORIES_ICONS[title].src;
+  const Icon = CATEGORIES_ICONS[title];
   const isActiveCategory = activeCategoryId === id;
   const categoryQuery = title.split(/\s+/).join('-').toLowerCase();
 
@@ -41,7 +40,13 @@ function CategoryItem({ title, id }: TCategory) {
         )}
         onClick={handleCategoryClick}
       >
-        <Image width={24} height={24} src={src} alt={title} />
+        <Icon
+          className={clsx(
+            'text-primary200_light900 group-hover:dark:text-primary-200',
+            isActiveCategory && 'dark:text-primary-200',
+          )}
+        />
+
         <p className="ml-3 text-primary200_dark:light100 group-hover:text-dark-primary200">
           {title}
         </p>

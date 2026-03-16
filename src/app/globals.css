@@ -1,6 +1,6 @@
 @import 'tailwindcss';
-@import "tw-animate-css";
-@import "shadcn/tailwind.css";
+@import 'tw-animate-css';
+@import 'shadcn/tailwind.css';
 
 @custom-variant dark (&:is(.dark *));
 
@@ -14,7 +14,7 @@
   --color-light-500: #939393;
   --color-light-700: #dfdfdf;
   --color-light-800: #fafafb;
-  --color-light-900: #fff;
+  --color-light-900: #eaeaea;
 
   --color-dark-100: #171717;
   --color-dark-200: #08163b;
@@ -32,7 +32,7 @@
   @apply text-dark-100 dark:text-light-900;
   @apply transition-default;
 }
-@utility text-primary200_light100 {
+@utility text-primary200_light900 {
   @apply text-primary-200 dark:text-light-900;
   @apply transition-default;
 }
@@ -48,6 +48,9 @@
   }
   .icon {
     @apply w-6 h-6 text-light-500 select-none cursor-pointer;
+  }
+  .category-icon {
+    @apply fill-primary-200 dark:fill-light-900;
   }
   .bg-pattern {
     @apply bg-center bg-no-repeat bg-contain;

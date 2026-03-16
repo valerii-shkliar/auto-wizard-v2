@@ -2,21 +2,16 @@ import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
 import Theme from './Theme';
+import MainLogo from '../main-logo/MainLogo';
 
 export default function NavBar() {
   const linkItemClass =
-    'px-2.5 transition-default uppercase text-primary-200 font-medium text-lg hover:scale-110 border border-transparent hover:border-primary-900 rounded-2xl hover:shadow-md hover:shadow-primary-900';
+    'px-2.5 uppercase text-primary200_light900 font-medium text-lg hover:scale-110 border border-transparent hover:border-primary-900 rounded-2xl hover:shadow-md hover:shadow-primary-900';
 
   return (
     <nav className="flex flex-between">
       <Link href={'/'}>
-        <Image
-          src="/logo/logo.svg"
-          alt="Auto Wizard Logo"
-          width={200}
-          height={65}
-          loading="eager"
-        />
+        <MainLogo />
       </Link>
       <ul className="flex gap-4">
         <li className="">
