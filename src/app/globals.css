@@ -10,11 +10,14 @@
   --color-primary-500: #0084ff;
   --color-primary-600: #65a4f6;
   --color-primary-900: #aae8f5;
+  --color-primary-1000: #bddafc;
 
   --color-light-500: #939393;
   --color-light-700: #dfdfdf;
   --color-light-800: #fafafb;
   --color-light-900: #eaeaea;
+  --color-light-1000: #f1f7fe;
+  --color-light-1200: #fff;
 
   --color-dark-100: #171717;
   --color-dark-200: #08163b;
@@ -28,6 +31,18 @@
   @apply bg-light-900 dark:bg-dark-200;
   @apply transition-default;
 }
+@utility background-light1200_dark200 {
+  @apply bg-light-1200 dark:bg-dark-200;
+  @apply transition-default;
+}
+@utility background-light1000_dark200 {
+  @apply bg-light-1000 dark:bg-dark-200;
+  @apply transition-default;
+}
+@utility background-primary1000_dark200 {
+  @apply bg-primary-1000 dark:bg-dark-200;
+  @apply transition-default;
+}
 @utility text-dark100_light900 {
   @apply text-dark-100 dark:text-light-900;
   @apply transition-default;
@@ -38,6 +53,11 @@
 }
 @utility text-dark-primary200 {
   @apply dark:text-primary-200;
+  @apply transition-default;
+}
+
+@utility text-primary300_light900 {
+  @apply text-primary-300 dark:text-light-900;
   @apply transition-default;
 }
 
@@ -70,6 +90,10 @@
   }
   .flex-around {
     @apply flex justify-around items-center;
+  }
+
+  .invert-colors {
+    @apply invert-0 dark:invert;
   }
 }
 
