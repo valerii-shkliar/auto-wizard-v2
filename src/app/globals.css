@@ -23,6 +23,8 @@
   --color-dark-200: #08163b;
 
   --color-warning: #ff451a;
+
+  --shadow-input: 0 0 0 3px #65a4f680;
 }
 @utility transition-default {
   @apply transition-all ease-in duration-300;
@@ -64,7 +66,7 @@
 @layer components {
   .input {
     @apply p-2.5 transition-all duration-400 border border-solid
-      border-light-500 rounded-lg focus:border-primary-600 focus:shadow-(--input-shadow);
+      border-light-500 rounded-lg focus:border-primary-600 focus:shadow-input;
   }
   .icon {
     @apply w-6 h-6 text-light-500 select-none cursor-pointer;
