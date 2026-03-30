@@ -45,6 +45,10 @@
   @apply bg-primary-1000 dark:bg-dark-200;
   @apply transition-default;
 }
+@utility background-primary500_light1000 {
+  @apply bg-primary-500 dark:bg-light-1000;
+  @apply transition-default;
+}
 @utility text-dark100_light900 {
   @apply text-dark-100 dark:text-light-900;
   @apply transition-default;
@@ -62,11 +66,14 @@
   @apply text-primary-300 dark:text-light-900;
   @apply transition-default;
 }
+@utility text-light1200_primary300 {
+  @apply text-light-1200 dark:text-primary-300;
+  @apply transition-default;
+}
 
 @layer components {
-  .input {
-    @apply p-2.5 transition-all duration-400 border border-solid
-      border-light-500 rounded-lg focus:border-primary-600 focus:shadow-input;
+  .input-primary {
+    @apply transition-all duration-400 border border-solid border-light-500 rounded-lg focus:border-primary-600 focus:shadow-input;
   }
   .icon {
     @apply w-6 h-6 text-light-500 select-none cursor-pointer;

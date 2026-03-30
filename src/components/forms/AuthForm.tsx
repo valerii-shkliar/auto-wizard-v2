@@ -1,80 +1,99 @@
 'use client';
-import React from 'react';
+import { useState } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Controller, DefaultValues, FieldValues, Path, useForm } from 'react-hook-form';
-import { toast } from 'sonner';
+import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 
-import { Button } from '@/components/ui/button';
-import { Field, FieldError, FieldGroup, FieldLabel } from '@/components/ui/field';
-import { Input } from '@/components/ui/input';
+import uppercaseFirstWord from '@/lib/uppercaseFirstWord';
+import { Eye } from 'lucide-react';
+import { cn } from '@/lib/utils';
 
-// interface AuthFormProps<T extends AuthFields> {
-//   schema: z.ZodTypeAny;
-//   defaultValues: T;
-//   type: 'SIGN_IN' | 'SIGN_UP';
-//   onSubmit: (data: T) => Promise<{ success: boolean; data: T }>;
-// }
+interface AuthFields {
+  username: string;
+  password: string;
+}
 
-function AuthForm({ schema, defaultValues, typeForm, onSubmit }) {
-  const form = useForm<z.infer<typeof schema>>({
+interface AuthFormProps {
+  schema: z.ZodType<AuthFields, AuthFields>;
+  defaultValues: AuthFields;
+  typeForm: 'SIGN_IN' | 'SIGN_UP';
+  onSubmit: (data: AuthFields) => Promise<{ success: boolean; data: AuthFields }>;
+}
+
+function AuthForm({ schema, defaultValues, typeForm, onSubmit }: AuthFormProps) {
+  const [inputType, setInputType] = useState('password');
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isValid },
+  } = useForm<AuthFields>({
     resolver: zodResolver(schema),
-    defaultValues: defaultValues,
+    defaultValues,
+    mode: 'onTouched',
   });
-  async function handleSubmit(data: z.infer<typeof schema>) {
+
+  async function onFormSubmit(data: AuthFields) {
+    await onSubmit(data);
     console.log(data);
   }
+  console.log('render');
 
   return (
-    <form id="form-rhf-input" onSubmit={form.handleSubmit(handleSubmit)}>
-      {typeForm}
-      <FieldGroup>
-        <Controller
-          name={'username'}
-          control={form.control}
-          render={({ field, fieldState }) => (
-            <Field data-invalid={fieldState.invalid}>
-              <FieldLabel htmlFor="form-rhf-input-username">Login</FieldLabel>
-              <Input
-                {...field}
-                id="form-rhf-input-username"
-                aria-invalid={fieldState.invalid}
-                placeholder="Your Login"
-                autoComplete="username"
-                className="input!"
-              />
-              {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
-            </Field>
-          )}
-        />
-      </FieldGroup>
-      <FieldGroup>
-        <Controller
-          name={'password'}
-          control={form.control}
-          render={({ field, fieldState }) => (
-            <Field data-invalid={fieldState.invalid}>
-              <FieldLabel htmlFor="form-rhf-input-password">Password</FieldLabel>
-              <Input
-                {...field}
-                id="form-rhf-input-password"
-                aria-invalid={fieldState.invalid}
-                placeholder="Your Password"
-                autoComplete="current-password"
-              />
-              {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
-            </Field>
-          )}
-        />
-      </FieldGroup>
-      <Field orientation="horizontal">
-        <Button type="button" variant="outline" onClick={() => form.reset()}>
-          Reset
-        </Button>
-        <Button type="submit" form="form-rhf-input">
-          Save
-        </Button>
-      </Field>
+    <form onSubmit={handleSubmit(onFormSubmit)}>
+      <div className="mb-3">
+        <label htmlFor={`form-input-username`}>{uppercaseFirstWord('username')}</label>
+        <div className="relative">
+          <input
+            className={cn('input-primary p-2 block w-full', errors['username'] && 'border-warning')}
+            id={`form-input-username`}
+            aria-invalid={errors['username'] ? 'true' : 'false'}
+            placeholder={`Your username...`}
+            {...register('username')}
+          />
+        </div>
+
+        {errors['username'] && (
+          <p role="alert" className="text-warning">
+            {errors['username']?.message}
+          </p>
+        )}
+      </div>
+      <div className="mb-3">
+        <label htmlFor={`form-input-password`}>{uppercaseFirstWord('password')}</label>
+        <div className="relative">
+          <input
+            className={cn('input-primary p-2 block w-full', errors['password'] && 'border-warning')}
+            id={`form-input-password`}
+            type={inputType}
+            aria-invalid={errors['password'] ? 'true' : 'false'}
+            placeholder={`Your password...`}
+            {...register('password')}
+          />
+          <button
+            type="button"
+            className="group absolute right-2 top-1/2 -translate-y-1/2"
+            onClick={() => {
+              if (inputType === 'password') setInputType('text');
+              if (inputType === 'text') setInputType('password');
+            }}
+          >
+            <Eye className="text-light-500 group-hover:text-dark-100 transition-default" />
+          </button>
+        </div>
+
+        {errors['password'] && (
+          <p role="alert" className="text-warning">
+            {errors['password']?.message}
+          </p>
+        )}
+      </div>
+      <button
+        className="background-primary500_light1000 hover:bg-primary-600 dark:hover:bg-light-700 text-light1200_primary300 m-auto px-3 py-1 rounded-md block mb-3.5 transition-default disabled:bg-light-500 disabled:cursor-not-allowed"
+        type="submit"
+        disabled={!isValid}
+      >
+        {typeForm === 'SIGN_IN' ? 'Sign In' : 'Sign Up'}
+      </button>
     </form>
   );
 }

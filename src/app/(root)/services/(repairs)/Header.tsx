@@ -28,7 +28,7 @@ function Header() {
       <div className="min-w-2/3 flex relative">
         <IoSearch className="icon absolute left-2.5 top-1/2 -translate-y-1/2" />
         <input
-          className="group input w-full px-10"
+          className="group input-primary p-2.5 w-full px-10"
           name="searchInput"
           placeholder="Search..."
           onChange={handleSearchChange}
