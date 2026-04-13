@@ -30,7 +30,7 @@
     ".next/types/**/*.ts",
     ".next/dev/types/**/*.ts",
     "**/*.mts",
-    "src/api/ServicesApi.ts"
+    "src/lib/api/http.ts"
   ],
   "exclude": ["node_modules"]
 }

@@ -2,20 +2,21 @@
 
 import {
   addServiceToCart,
-  getFilter,
   isSelectedService,
   removeServiceFromCart,
 } from '@/store/slices/repairsSlice';
-import { TService } from '@/types';
-import { convertLeadTime } from '@/utilities/convertLeadTime';
-import { JSX } from 'react';
+import { TServiceWithCategory } from '@/features/services/types';
+import { convertLeadTime } from '@/features/services/lib/convertLeadTime';
 import { useDispatch, useSelector } from 'react-redux';
+import { useSearchParams } from 'next/navigation';
+import MarkedText from './MarkedText';
 
-function ServiceItem({ service }: { service: TService }) {
+function ServiceItem({ service }: { service: TServiceWithCategory }) {
   const { name, lead_time: leadTime, price } = service;
   const dispatch = useDispatch();
   const isChecked = useSelector(isSelectedService(service.id));
-  const filter = useSelector(getFilter);
+  const searchParams = useSearchParams();
+  const filter = searchParams.get('search');
 
   function handleInputChange() {
     if (isChecked) {
@@ -23,28 +24,6 @@ function ServiceItem({ service }: { service: TService }) {
     } else {
       dispatch(addServiceToCart(service));
     }
-  }
-
-  function pointFilteredText(name: string, filter: string): JSX.Element {
-    const regExp = new RegExp(`(${filter.toLowerCase()})`, 'gi');
-    const textsList = name.split(regExp);
-    const res = [];
-
-    for (let i = 0; i < textsList.length; i++) {
-      const text = textsList[i];
-
-      if (regExp.test(text)) {
-        regExp.lastIndex = 0;
-        res.push(
-          <span key={i} className="font-medium underline text-warning">
-            {text}
-          </span>,
-        );
-        continue;
-      }
-      res.push(text);
-    }
-    return <>{res}</>;
   }
 
   return (
@@ -65,7 +44,7 @@ function ServiceItem({ service }: { service: TService }) {
         />
 
         <p className="text-dark-primary200_dark:light100 ml-2.5 text-sm group-hover:text-dark-primary200">
-          {filter ? pointFilteredText(name, filter) : name}
+          {filter ? <MarkedText name={name} filter={filter} /> : name}
         </p>
         <span
           className="text-dark-primary200_dark:light100 text-sm ml-4.5 opacity-0 transition-opacity duration-800 

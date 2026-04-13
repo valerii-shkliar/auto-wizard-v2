@@ -1,6 +1,6 @@
-function EmptyServices() {
+function DefaultServicesPage() {
   return (
-    <>
+    <ul className="p-2.5 w-full">
       <h4 className="p-5 text-center font-semibold">Here may be your order</h4>
       <p className="p-5 pb-0 relative flex justify-center items-center gap-2.5">
         <svg
@@ -28,8 +28,8 @@ function EmptyServices() {
           </g>
         </svg>
       </p>
-    </>
+    </ul>
   );
 }
 
-export default EmptyServices;
+export default DefaultServicesPage;

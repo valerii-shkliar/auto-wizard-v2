@@ -10,9 +10,6 @@ import { signIn } from 'next-auth/react';
 import ROUTES from '@/constants/routes';
 import { useRouter } from 'next/navigation';
 
-const btnClass =
-  'background-light1000_dark200 hover:background-primary1000_dark200 text-primary300_light900 flex-center gap-2.5 rounded-md px-6 py-2';
-
 function AuthLayout({ children }: { children: ReactNode }) {
   const router = useRouter();
   async function handleAuthClick(provider: 'github' | 'google') {
@@ -46,7 +43,7 @@ function AuthLayout({ children }: { children: ReactNode }) {
         <h2 className="text-center text-2xl mb-3">Ingress to your account</h2>
         {children}
         <div className="flex gap-4">
-          <button className={btnClass} onClick={() => handleAuthClick('github')}>
+          <button className="btn-primary" onClick={() => handleAuthClick('github')}>
             <Image
               src={githubIcon}
               width={20}
@@ -56,7 +53,7 @@ function AuthLayout({ children }: { children: ReactNode }) {
             />
             Enter via GitHub
           </button>
-          <button className={btnClass} onClick={() => handleAuthClick('google')}>
+          <button className="btn-primary" onClick={() => handleAuthClick('google')}>
             <Image src={googleIcon} width={20} height={20} alt="Google Logo" />
             Enter via Google
           </button>

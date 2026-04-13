@@ -1,23 +1,45 @@
-import { configureStore } from '@reduxjs/toolkit';
+import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import repairsReducer from './slices/repairsSlice';
-import { TCategory, TService } from '@/types';
+import { TService, TServiceWithCategory } from '@/features/services/types';
+import storage from 'redux-persist/lib/storage';
+import {
+  persistStore,
+  persistReducer,
+  FLUSH,
+  REHYDRATE,
+  PAUSE,
+  PERSIST,
+  PURGE,
+  REGISTER,
+} from 'redux-persist';
 
 export type TRepairsState = {
-  servicesList: TService[];
-  categoriesList: TCategory[];
-  servicesCart: TService[];
-  activeCategoryId: null | string | number;
-  isActiveCart: boolean;
+  servicesCart: TServiceWithCategory[];
   filter: string;
 };
 export type TState = {
   repairs: TRepairsState;
 };
 
-const store = configureStore({
-  reducer: {
-    repairs: repairsReducer,
-  },
+const persistConfig = {
+  key: 'persisted-store',
+  storage,
+};
+
+const rootReducer = combineReducers({
+  repairs: repairsReducer,
 });
 
-export default store;
+const persistedRootReducer = persistReducer(persistConfig, rootReducer);
+
+export const store = configureStore({
+  reducer: persistedRootReducer,
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: {
+        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+      },
+    }),
+});
+
+export const persistor = persistStore(store);

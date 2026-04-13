@@ -1,44 +1,29 @@
 'use client';
 
-import { CATEGORIES_ICONS } from '@/constants/categories-icons';
-import {
-  getActiveCategoryId,
-  getAmountOptedServices,
-  resetFilter,
-  setActiveCategory,
-} from '@/store/slices/repairsSlice';
-import { TCategory } from '@/types';
+import { CATEGORIES_ICONS } from '@/features/services/constants/categories-icons';
+import { getAmountOptedServices } from '@/store/slices/repairsSlice';
+import { TCategory } from '@/features/services/types';
 import clsx from 'clsx';
 import Link from 'next/link';
-import { useDispatch, useSelector } from 'react-redux';
+import { usePathname } from 'next/navigation';
+import { useSelector } from 'react-redux';
+import ROUTES from '@/constants/routes';
 
-function CategoryItem({ title, id }: TCategory) {
-  const dispatch = useDispatch();
-  const activeCategoryId = useSelector(getActiveCategoryId);
+function CategoryItem({ title, id, slug }: TCategory) {
   const amountOptedServices = useSelector(getAmountOptedServices(id));
   const Icon = CATEGORIES_ICONS[title];
-  const isActiveCategory = activeCategoryId === id;
-  const categoryQuery = title.split(/\s+/).join('-').toLowerCase();
-
-  function handleCategoryClick() {
-    if (id !== activeCategoryId) {
-      dispatch(setActiveCategory(id));
-      dispatch(resetFilter());
-    }
-  }
+  const pathname = usePathname();
+  const href = ROUTES.SERVICES + '/' + slug;
+  const isActiveCategory = pathname.includes(href);
 
   return (
     <li>
       <Link
-        href={{
-          pathname: '/services',
-          query: { name: categoryQuery },
-        }}
+        href={href}
         className={clsx(
           'group p-2.5 flex items-center rounded-xl transition-colors duration-400 hover:bg-light-700',
           isActiveCategory && 'bg-light-700 text-dark-primary200',
         )}
-        onClick={handleCategoryClick}
       >
         <Icon
           className={clsx(

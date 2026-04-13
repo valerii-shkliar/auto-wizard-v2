@@ -1,38 +1,32 @@
-import {
-  getOverallAmountOptedServices,
-  isActiveCartNow,
-  resetFilter,
-  setActiveCart,
-} from '@/store/slices/repairsSlice';
+'use client';
+
+import ROUTES from '@/constants/routes';
+import { getAmountServicesInCart } from '@/store/slices/repairsSlice';
 import clsx from 'clsx';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { FaCartArrowDown } from 'react-icons/fa6';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 function CategoryCart() {
-  const dispatch = useDispatch();
-  const isActiveCart = useSelector(isActiveCartNow);
-  const overallAmountOptedRepairs = useSelector(getOverallAmountOptedServices);
-
-  function handleCategoryCartClick() {
-    if (!isActiveCart) {
-      dispatch(setActiveCart());
-      dispatch(resetFilter());
-    }
-  }
+  const pathname = usePathname();
+  const isActiveCart = pathname.includes(ROUTES.CART);
+  const amountServicesInCart = useSelector(getAmountServicesInCart);
 
   return (
     <li>
-      <a
+      <Link
+        href={ROUTES.CART}
         className={clsx(
           'group p-2.5 flex items-center rounded-xl transition-colors duration-400 rounded-2.5 hover:bg-light-700',
           isActiveCart && 'bg-light-700 text-dark-primary200',
         )}
-        onClick={handleCategoryCartClick}
       >
         <FaCartArrowDown
           className={clsx(
             'w-6 h-6 text-primary200_light900 group-hover:dark:text-primary-200',
-            isActiveCart && 'dark:text-primary-200',
+            isActiveCart && ' dark:text-primary-200',
+            amountServicesInCart > 0 && 'text-primary-500',
           )}
         />
         <p
@@ -45,13 +39,14 @@ function CategoryCart() {
         </p>
         <span
           className={clsx(
-            'ml-auto text-primary200_light900 group-hover:text-dark-primary200 group-hover:dark:text-primary-200',
+            'ml-auto text-primary200_light900 group-hover:text-dark-primary200 group-hover:dark:text-primary-200 p-1',
             isActiveCart && 'dark:text-primary-200',
+            amountServicesInCart > 0 && 'scale-120 underline',
           )}
         >
-          {overallAmountOptedRepairs}
+          {amountServicesInCart}
         </span>
-      </a>
+      </Link>
     </li>
   );
 }

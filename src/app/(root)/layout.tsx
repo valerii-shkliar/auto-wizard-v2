@@ -1,4 +1,3 @@
-import MainLogo from '@/components/main-logo/MainLogo';
 import NavBar from '@/components/navigation/NavBar';
 import { ReactNode } from 'react';
 
