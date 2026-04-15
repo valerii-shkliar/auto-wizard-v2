@@ -68,6 +68,7 @@ export async function getServicesByCategoryId(id: string | number) {
   if (!Array.isArray(res.data)) {
     throw new Error('Invalid data from server!');
   }
+
   return res.data;
 }
 
