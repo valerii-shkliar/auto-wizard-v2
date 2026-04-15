@@ -20,6 +20,11 @@ function CategoryItem({ title, id, slug }: TCategory) {
     <li>
       <Link
         href={href}
+        onClick={(e) => {
+          if (isActiveCategory) {
+            e.preventDefault();
+          }
+        }}
         className={clsx(
           'group p-2.5 flex items-center rounded-xl transition-colors duration-400 hover:bg-light-700',
           isActiveCategory && 'bg-light-700 text-dark-primary200',

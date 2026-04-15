@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useDeferredValue, useEffect, useState } from 'react';
 import { IoSearch } from 'react-icons/io5';
 import { TiDelete } from 'react-icons/ti';
 import { useRouter, useSearchParams } from 'next/navigation';
@@ -11,29 +11,29 @@ function Header() {
   const router = useRouter();
   const currentValue = params.get('search') ?? '';
   const [value, setValue] = useState(currentValue);
+  const deferredValue = useDeferredValue(value);
 
   useEffect(() => {
-    setValue(currentValue);
+    if (!currentValue) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setValue(currentValue);
+    }
   }, [currentValue]);
 
   useEffect(() => {
-    const timeout = setTimeout(() => {
-      const input = value.trim();
-      const searchParams = new URLSearchParams(params.toString());
+    const input = deferredValue.trim();
+    const current = currentValue.trim();
+    const searchParams = new URLSearchParams(params.toString());
 
-      if (value === currentValue) return;
+    if (input === current) return;
 
-      if (input) {
-        searchParams.set('search', input);
-      } else {
-        searchParams.delete('search');
-      }
-      router.replace(`${ROUTES.SERVICES}?${searchParams.toString()}`);
-    }, 400);
-
-    return () => clearTimeout(timeout);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [value, router]);
+    if (input) {
+      searchParams.set('search', input);
+    } else {
+      searchParams.delete('search');
+    }
+    router.replace(`${ROUTES.SERVICES}?${searchParams.toString()}`);
+  }, [deferredValue, params, router, currentValue]);
 
   function handleIconCloseClick() {
     router.push(ROUTES.SERVICES);
