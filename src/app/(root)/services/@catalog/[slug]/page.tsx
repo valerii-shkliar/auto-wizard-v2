@@ -3,20 +3,12 @@ import {
   getServicesByCategoryId,
 } from '@/features/services/api/services.server';
 import EmptySearchState from '@/features/services/components/EmptySearchState';
-import ServicesCart from '@/features/services/components/ServicesCart';
 import ServicesList from '@/features/services/components/ServicesList';
 import { notFound } from 'next/navigation';
 
 async function Services({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const isOpenCart = slug === 'cart';
-  let category;
-
-  if (!isOpenCart) {
-    category = await getCategoryByCategorySlug(slug);
-  } else {
-    return <ServicesCart />;
-  }
+  const category = await getCategoryByCategorySlug(slug);
 
   if (!category) {
     notFound();
@@ -30,7 +22,6 @@ async function Services({ params }: { params: Promise<{ slug: string }> }) {
       </EmptySearchState>
     );
   }
-
   return <ServicesList services={services} />;
 }
 
